@@ -13,7 +13,7 @@ export async function POST(request: Request, response: Response) {
 
     if (!success) {
       return Response.json({
-        message: "Please enter valid data",
+        message: "Invalid data provided. Please check your data and try again.",
         errors: error.flatten().fieldErrors,
         status: 400,
       });
@@ -38,7 +38,7 @@ export async function POST(request: Request, response: Response) {
 
     const data = await response.json();
     return Response.json({
-      message: "User registered successfully",
+      message: "User registered successfully. Please login.",
       data,
       status: 200,
     });
