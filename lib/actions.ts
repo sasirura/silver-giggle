@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
 const LocationSchema = z.object({
   title: z
@@ -28,7 +29,6 @@ export type State = {
 };
 
 export async function createLocation(prevState: State, formData: FormData) {
-  console.log(formData);
   const validatedFields = LocationSchema.safeParse({
     title: formData.get("title"),
     address: formData.get("address"),
@@ -44,7 +44,6 @@ export async function createLocation(prevState: State, formData: FormData) {
   }
 
   const { title, address, devices, status } = validatedFields.data;
-
   try {
     await fetch(process.env.BACKEND_URL + "/location", {
       method: "POST",
